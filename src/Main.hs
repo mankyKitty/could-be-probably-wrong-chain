@@ -17,7 +17,7 @@ import           Data.Maybe                  (maybe)
 import           Data.Foldable               (foldlM)
 import           Data.Function               (($), (&))
 import           Data.Functor                (fmap)
-import           Data.Sequence               (ViewL ((:<)))
+import           Data.Sequence               (ViewL ((:<)), (<|))
 import qualified Data.Sequence               as S
 
 import           Data.Text.Lens              (packed)
@@ -115,7 +115,7 @@ replaceChain ( Old oldBlockC ) ( New newBlockC ) =
 
     chainValid v =
       case v ^. _Wrapped . to S.viewl of
-        S.EmptyL -> Left NewChainNotValid
+        S.EmptyL -> Left NewChainEmpty
         (h :< t) -> v <$ foldlM wrapperFlip (Old h) t
    in
     (lenOkay >=> chainValid) newBlockC
@@ -149,7 +149,7 @@ bcNetwork startTime hBlock hTimestamp initialChain = mdo
         (New $ generateNextBlock currH newTs newA)
       replaceChain
         (Old bc)
-        (New $ bc & _Wrapped %~ (S.|> newB))
+        (New $ bc & _Wrapped %~ (newB <|))
 
   bTimestamp <- acquireH hTimestamp >>= RB.stepper startTime
   eDataInput <- acquireH hBlock

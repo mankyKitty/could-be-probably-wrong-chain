@@ -22,7 +22,7 @@ data Error
   = InvalidIndex
   | InvalidCurrentHash
   | InvalidPreviousHash
-  | NewChainNotValid
+  | NewChainEmpty
   | OldChainLongerThanNew
   | EmptyBlockChain
 
