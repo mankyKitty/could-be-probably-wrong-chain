@@ -10,7 +10,7 @@ Loosely based on the following blog posts:
 
 There is no running system at the moment, but the moving parts are there will
 continue to be chipped at as time goes by. The actual mechanisms of receiving
-new data and extending the chain are handled by an FRP network using [reactive-banana].
+new data and extending the chain are handled by an FRP network using [reactive-banana](https://hackage.haskell.org/package/reactive-banana-1.1.0.1).
 
 There is no "Proof of Work" implemented at this stage, but that is on the TODO
 list and will most likely resemble a [Hashcash system](https://en.wikipedia.org/wiki/Hashcash).
